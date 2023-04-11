@@ -14,4 +14,8 @@ export class SubjectsService {
     const limit = 10;
     return this.apiService.get(`/subjects/${subjectName.toLowerCase().split(' ').join('_')}.json?limit=${limit}`);
   }
+
+  searchBooks(searchKey: string, offset: number, limit: number): Observable<BookResponse> {
+    return this.apiService.get(`/search.json?q=${searchKey.toLowerCase().split(' ').join('+')}&limit=${limit}&offset=${offset}`);
+  }
 }

@@ -32,3 +32,6 @@ table {
     padding-left: 16px;
   }
 }
+.mat-mdc-progress-spinner .mdc-circular-progress__determinate-circle, .mat-mdc-progress-spinner .mdc-circular-progress__indeterminate-circle-graphic {
+  stroke: #301ea6 !important;
+}
