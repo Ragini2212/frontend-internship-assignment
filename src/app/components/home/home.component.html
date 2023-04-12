@@ -1,17 +1,21 @@
 <div class="header">
+  
   <div class="tw-text-24-px tw-font-600">Open Books Library</div>
+  
   <div class="search-button">
-    <mat-icon class="tw-mt-16-px" aria-label="Search Icon">search</mat-icon>
     <input
-      [formControl]="bookSearch"
-      name="searchKey"
-      type="text"
-      placeholder="Search Books"
-      class="tw-border-0 tw-bg-inherit"
-    >
+    [formControl]="bookSearch"
+    name="searchKey"
+    type="text"
+    placeholder="Search Books"
+    class="tw-border-0 tw-bg-inherit"
+    (submit)="searchBooks()"
+    />
+    <mat-icon (click)="bookSearch.reset()" class="tw-mt-16-px" aria-label="Erase Icon" style="cursor: pointer;">backspace</mat-icon>
+    <mat-icon (click)="searchBooks()" class="tw-mt-16-px" aria-label="Search Icon" style="cursor: pointer;">search</mat-icon>
   </div>
 </div>
-<div class="tw-flex tw-flex-row tw-m-24-px">
+<div class="tw-flex tw-m-24-px">
   <section class="trending-subjects">
     <div class="tw-font-600 tw-text-24-px">Trending Subjects</div>
     <ul class="tw-list-none tw-pl-0">
@@ -19,5 +23,29 @@
         {{ subject.name }}
       </li>
     </ul>
+  </section>
+
+  <section style="min-width: 100%; display: flex; justify-content: center;">
+    <h3 style="color: red" *ngIf="emptySearchBox">Please type book or author name to search!</h3>
+    
+    <mat-spinner mode="indeterminate" *ngIf="isLoading"></mat-spinner>
+
+    <div *ngIf="allBooks.length > 0">
+      <front-end-internship-assignment-table-view
+      [searchedBooksList]="allBooks"
+      ></front-end-internship-assignment-table-view>
+
+      <mat-paginator #paginator *ngIf="allBooks.length > 0"
+        class="demo-paginator"
+        (page)="handlePageEvent($event)"
+        [length]="length"
+        [pageSize]="pageSize"
+        [showFirstLastButtons]="true"
+        [pageIndex]="pageIndex"
+        aria-label="Select page">
+</mat-paginator>
+    </div>
+
+    
   </section>
 </div>
